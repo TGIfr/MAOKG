@@ -9,11 +9,11 @@ import javax.swing.Timer;
 import javax.vecmath.*;
 
 // Vector3f - float, Vector3d - double
-public class Castle implements ActionListener {
-    private float upperEyeLimit = 5.0f; // 5.0
-    private float lowerEyeLimit = 1.0f; // 1.0
-    private float farthestEyeLimit = 6.0f; // 6.0
-    private float nearestEyeLimit = 3.0f; // 3.0
+public class IceCream implements ActionListener {
+    private float upperEyeLimit = 8.0f; // 5.0
+    private float lowerEyeLimit = 5.0f; // 1.0
+    private float farthestEyeLimit = 7.0f; // 6.0
+    private float nearestEyeLimit = 4.0f; // 3.0
 
     private TransformGroup treeTransformGroup;
     private TransformGroup viewingTransformGroup;
@@ -26,10 +26,10 @@ public class Castle implements ActionListener {
     private boolean approaching = true;
 
     public static void main(String[] args) {
-        new Castle();
+        new IceCream();
     }
 
-    private Castle() {
+    private IceCream() {
         Timer timer = new Timer(50, this);
         SimpleUniverse universe = new SimpleUniverse();
 
@@ -47,10 +47,10 @@ public class Castle implements ActionListener {
         // створюємо об'єкт, що будемо додавати до групи
         treeTransformGroup = new TransformGroup();
         treeTransformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-        buildCastleSkeleton();
+        buildIceCream();
         objRoot.addChild(treeTransformGroup);
 
-        Background background = new Background(new Color3f(1.0f, 1.0f, 1.0f)); // white color
+        Background background = new Background(new Color3f(0.9f, 0.9f, 0.9f)); // white color
         BoundingSphere sphere = new BoundingSphere(new Point3d(0,0,0), 100000);
         background.setApplicationBounds(sphere);
         objRoot.addChild(background);
@@ -71,154 +71,77 @@ public class Castle implements ActionListener {
         return objRoot;
     }
 
-    private void buildCastleSkeleton() {
-        Box body1 = CastleBody.getBody(0.125f, 1.0f);
-        Transform3D body1T = new Transform3D();
-        body1T.setTranslation(new Vector3f());
-        TransformGroup body1TG = new TransformGroup();
-        body1TG.setTransform(body1T);
-        body1TG.addChild(body1);
-        treeTransformGroup.addChild(body1TG);
+    private void buildIceCream() {
+        var body = new Cylinder(1, 4, Utils.getBodyAppearence());
+        var bodyT = new Transform3D();
+        bodyT.setTranslation(new Vector3f());
+        bodyT.rotX(Math.PI / 2);
+        var bodyTG = new TransformGroup();
+        bodyTG.setTransform(bodyT);
+        bodyTG.addChild(body);
 
-        setOneLevelOfTowers(0.8f, 0.25f);
-        setOneLevelOfTowers(0.4f, 0.5f);
+        var ball = new Sphere(1.1f, Utils.getBallAppearence());
+        var ballT = new Transform3D();
+        ballT.setTranslation(new Vector3f(0, 2, 0));
+        var ballTG = new TransformGroup();
+        ballTG.setTransform(ballT);
+        ballTG.addChild(ball);
+        bodyTG.addChild(ballTG);
 
-        Box body2 = CastleBody.getBody(0.125f, 0.6f);
-        Transform3D body2T = new Transform3D();
-        body2T.setTranslation(new Vector3f(.0f, .0f, 0.25f));
-        TransformGroup body2TG = new TransformGroup();
-        body2TG.setTransform(body2T);
-        body2TG.addChild(body2);
-        treeTransformGroup.addChild(body2TG);
+        var choco1 = new Sphere(0.2f , Utils.getChocoAppearence());
+        var choco1T = new Transform3D();
+        choco1T.setTranslation(new Vector3f(0, 1f , 0));
+        var choco1TG = new TransformGroup();
+        choco1TG.setTransform(choco1T);
+        choco1TG.addChild(choco1);
 
-        setCylinderTowers();
 
-        setOneLevelOf4Fetches(0.4f, .0f);
-        setOneLevelOf4Fetches(0.8f, -0.25f);
+        var choco2 = new Sphere(0.2f , Utils.getChocoAppearence());
+        var choco2T = new Transform3D();
+        choco2T.setTranslation(new Vector3f(0.7f, 0.8f , 0));
+        var choco2TG = new TransformGroup();
+        choco2TG.setTransform(choco2T);
+        choco2TG.addChild(choco2);
 
-        setUpperProtectFetches();
-        setLowerProtectFetches();
-    }
+        var choco3 = new Sphere(0.2f , Utils.getChocoAppearence());
+        var choco3T = new Transform3D();
+        choco3T.setTranslation(new Vector3f(0, 0.7f , -0.7f));
+        var choco3TG = new TransformGroup();
+        choco3TG.setTransform(choco3T);
+        choco3TG.addChild(choco3);
 
-    private void setUpperProtectFetches(){
-        float distanceFromCentre = 0.592f;
-        float zPos = 0.38f; // 0.33f
-        TransformGroup protectFetch1 = CastleBody.getProtectFetch(distanceFromCentre, .0f, zPos, true);
-        treeTransformGroup.addChild(protectFetch1);
-        TransformGroup protectFetch2 = CastleBody.getProtectFetch(-distanceFromCentre, .0f, zPos, true);
-        treeTransformGroup.addChild(protectFetch2);
-        TransformGroup protectFetch3 = CastleBody.getProtectFetch(.0f, distanceFromCentre, zPos, false);
-        treeTransformGroup.addChild(protectFetch3);
-        TransformGroup protectFetch4 = CastleBody.getProtectFetch(.0f, -distanceFromCentre, zPos, false);
-        treeTransformGroup.addChild(protectFetch4);
-    }
+        var choco4 = new Sphere(0.2f , Utils.getChocoAppearence());
+        var choco4T = new Transform3D();
+        choco4T.setTranslation(new Vector3f(-0.5f, 0.6f , -0.6f));
+        var choco4TG = new TransformGroup();
+        choco4TG.setTransform(choco4T);
+        choco4TG.addChild(choco4);
 
-    private void setLowerProtectFetches(){
-        float distanceFromCentre1 = 0.992f;
-        float distanceFromCentre2 = 0.4f; // 0.392
-        float zPos = 0.133f;
+        var choco5 = new Sphere(0.2f , Utils.getChocoAppearence());
+        var choco5T = new Transform3D();
+        choco5T.setTranslation(new Vector3f(-0.4f, 0.7f , 0.5f));
+        var choco5TG = new TransformGroup();
+        choco5TG.setTransform(choco5T);
+        choco5TG.addChild(choco5);
 
-        TransformGroup protectFetch1 = CastleBody.getProtectFetch(distanceFromCentre1, .0f, zPos, true);
-        treeTransformGroup.addChild(protectFetch1);
-        TransformGroup protectFetch2 = CastleBody.getProtectFetch(distanceFromCentre1, distanceFromCentre2, zPos, true);
-        treeTransformGroup.addChild(protectFetch2);
-        TransformGroup protectFetch3 = CastleBody.getProtectFetch(distanceFromCentre1, -distanceFromCentre2, zPos, true);
-        treeTransformGroup.addChild(protectFetch3);
+        ballTG.addChild(choco1TG);
+        ballTG.addChild(choco2TG);
+        ballTG.addChild(choco3TG);
+        ballTG.addChild(choco4TG);
+        ballTG.addChild(choco5TG);
 
-        TransformGroup protectFetch4 = CastleBody.getProtectFetch(-distanceFromCentre1, .0f, zPos, true);
-        treeTransformGroup.addChild(protectFetch4);
-        TransformGroup protectFetch5 = CastleBody.getProtectFetch(-distanceFromCentre1, distanceFromCentre2, zPos, true);
-        treeTransformGroup.addChild(protectFetch5);
-        TransformGroup protectFetch6 = CastleBody.getProtectFetch(-distanceFromCentre1, -distanceFromCentre2, zPos, true);
-        treeTransformGroup.addChild(protectFetch6);
 
-        TransformGroup protectFetch7 = CastleBody.getProtectFetch(.0f, distanceFromCentre1, zPos, false);
-        treeTransformGroup.addChild(protectFetch7);
-        TransformGroup protectFetch8 = CastleBody.getProtectFetch(distanceFromCentre2, distanceFromCentre1, zPos, false);
-        treeTransformGroup.addChild(protectFetch8);
-        TransformGroup protectFetch9 = CastleBody.getProtectFetch(-distanceFromCentre2, distanceFromCentre1, zPos, false);
-        treeTransformGroup.addChild(protectFetch9);
+        treeTransformGroup.addChild(bodyTG);
 
-        TransformGroup protectFetch10 = CastleBody.getProtectFetch(0.f, -distanceFromCentre1, zPos, false);
-        treeTransformGroup.addChild(protectFetch10);
-        TransformGroup protectFetch11 = CastleBody.getProtectFetch(distanceFromCentre2, -distanceFromCentre1, zPos, false);
-        treeTransformGroup.addChild(protectFetch11);
-        TransformGroup protectFetch12 = CastleBody.getProtectFetch(-distanceFromCentre2, -distanceFromCentre1, zPos, false);
-        treeTransformGroup.addChild(protectFetch12);
-    }
 
-    private void setCylinderTowers(){
-        float cylTowDistFromCentre = 0.2f;
-        TransformGroup cylinderTower1 = CastleBody.getCylinderTower(1.5f, .0f, .0f);
-        treeTransformGroup.addChild(cylinderTower1);
-        TransformGroup cylinderTower2 = CastleBody.getCylinderTower(1.05f, -cylTowDistFromCentre, cylTowDistFromCentre);
-        treeTransformGroup.addChild(cylinderTower2);
-        TransformGroup cylinderTower3 = CastleBody.getCylinderTower(1.0f, cylTowDistFromCentre, cylTowDistFromCentre);
-        treeTransformGroup.addChild(cylinderTower3);
-        TransformGroup cylinderTower4 = CastleBody.getCylinderTower(1.1f, cylTowDistFromCentre, -cylTowDistFromCentre);
-        treeTransformGroup.addChild(cylinderTower4);
-        TransformGroup cylinderTower5 = CastleBody.getCylinderTower(0.9f, -cylTowDistFromCentre, -cylTowDistFromCentre);
-        treeTransformGroup.addChild(cylinderTower5);
-    }
+//        Box body2 = Utils.getBody(0.125f, 0.6f);
+//        Transform3D body2T = new Transform3D();
+//        body2T.setTranslation(new Vector3f(.0f, .0f, 0.25f));
+//        TransformGroup body2TG = new TransformGroup();
+//        body2TG.setTransform(body2T);
+//        body2TG.addChild(body2);
+//        treeTransformGroup.addChild(body2TG);
 
-    private void setOneLevelOf4Fetches(float distanceFromCentre, float height){
-        TransformGroup fourFetches1 = CastleBody.getFourFetches();
-        Transform3D tower1T = new Transform3D();
-        tower1T.setTranslation(new Vector3f(distanceFromCentre, distanceFromCentre, height));
-        fourFetches1.setTransform(tower1T);
-        treeTransformGroup.addChild(fourFetches1);
-
-        TransformGroup fourFetches2 = CastleBody.getFourFetches();
-        Transform3D tower2T = new Transform3D();
-        tower2T.setTranslation(new Vector3f(-distanceFromCentre, -distanceFromCentre, height));
-        fourFetches2.setTransform(tower2T);
-        treeTransformGroup.addChild(fourFetches2);
-
-        TransformGroup fourFetches3 = CastleBody.getFourFetches();
-        Transform3D tower3T = new Transform3D();
-        tower3T.setTranslation(new Vector3f(distanceFromCentre, -distanceFromCentre, height));
-        fourFetches3.setTransform(tower3T);
-        treeTransformGroup.addChild(fourFetches3);
-
-        TransformGroup fourFetches4 = CastleBody.getFourFetches();
-        Transform3D tower4T = new Transform3D();
-        tower4T.setTranslation(new Vector3f(-distanceFromCentre, distanceFromCentre, height));
-        fourFetches4.setTransform(tower4T);
-        treeTransformGroup.addChild(fourFetches4);
-    }
-
-    private void setOneLevelOfTowers(float distanceFromCentre, float height){
-        Box tower1 = CastleBody.getTower();
-        Transform3D tower1T = new Transform3D();
-        tower1T.setTranslation(new Vector3f(distanceFromCentre, distanceFromCentre, height));
-        TransformGroup tower1TG = new TransformGroup();
-        tower1TG.setTransform(tower1T);
-        tower1TG.addChild(tower1);
-        treeTransformGroup.addChild(tower1TG);
-
-        Box tower2 = CastleBody.getTower();
-        Transform3D tower2T = new Transform3D();
-        tower2T.setTranslation(new Vector3f(-distanceFromCentre, -distanceFromCentre, height));
-        TransformGroup tower2TG = new TransformGroup();
-        tower2TG.setTransform(tower2T);
-        tower2TG.addChild(tower2);
-        treeTransformGroup.addChild(tower2TG);
-
-        Box tower3 = CastleBody.getTower();
-        Transform3D tower3T = new Transform3D();
-        tower3T.setTranslation(new Vector3f(distanceFromCentre, -distanceFromCentre, height));
-        TransformGroup tower3TG = new TransformGroup();
-        tower3TG.setTransform(tower3T);
-        tower3TG.addChild(tower3);
-        treeTransformGroup.addChild(tower3TG);
-
-        Box tower4 = CastleBody.getTower();
-        Transform3D tower4T = new Transform3D();
-        tower4T.setTranslation(new Vector3f(-distanceFromCentre, distanceFromCentre, height));
-        TransformGroup tower4TG = new TransformGroup();
-        tower4TG.setTransform(tower4T);
-        tower4TG.addChild(tower4);
-        treeTransformGroup.addChild(tower4TG);
     }
 
     // ActionListener interface
@@ -256,7 +179,7 @@ public class Castle implements ActionListener {
         }
 
         Point3d eye = new Point3d(eyeDistance, eyeDistance, eyeHeight); // spectator's eye
-        Point3d center = new Point3d(.0f, .0f ,0.5f); // sight target
+        Point3d center = new Point3d(.0f, .0f ,0.1f); // sight target
         Vector3d up = new Vector3d(.0f, .0f, 1.0f);; // the camera frustum
         viewingTransform.lookAt(eye, center, up);
         viewingTransform.invert();

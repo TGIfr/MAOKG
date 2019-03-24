@@ -32,39 +32,28 @@ public class CarAnimation implements ActionListener, KeyListener {
     }
 
     private void Move() {
-
-
   	  	if (w) {
   	  		y += 0.01f;
   	  	}
-
   	  	if (s) {
 			y -= 0.01f;
-
 	  	}
-
-
-
         if (a) {
 			x -= 0.01f;
         }
-
         if (d) {
         	x += 0.01f;
         }
-
 		transform3D.setTranslation(new Vector3f(x, y, 0));
 
         if (e){
-				Transform3D rotation = new Transform3D();
-				rotation.rotZ(-0.05f);
-				transform3D.mul(rotation);
-
+            var rotation = new Transform3D();
+            rotation.rotZ(-0.05f);
+            transform3D.mul(rotation);
 		}
 
 		if (q){
-
-			Transform3D rotation = new Transform3D();
+			var rotation = new Transform3D();
 			rotation.rotZ(0.05f);
 			transform3D.mul(rotation);
 
@@ -95,7 +84,7 @@ public class CarAnimation implements ActionListener, KeyListener {
     public void keyTyped(KeyEvent e) {
     	
     }
-    
+
     @Override
     public void keyReleased(KeyEvent ev) {
     	switch (ev.getKeyChar()) {
@@ -105,7 +94,6 @@ public class CarAnimation implements ActionListener, KeyListener {
 	    	case 'd': d = false; break;
 			case 'e': e = false; break;
 			case 'q': q = false; break;
-
     	}
     }
 }

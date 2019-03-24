@@ -130,7 +130,7 @@ public class Main extends JPanel implements ActionListener {
         if(counterMax <= counter){
             counter = 0;
         }
-        
+
         angle += 0.01;
 
         repaint();

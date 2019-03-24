@@ -64,8 +64,8 @@ public class Car extends JFrame {
     }
     
     private void addImageBackground() {
-        TextureLoader t = new TextureLoader("D:/projects/MAOKG/lab5/source_folder/track.jpg", canvas);
-        Background background = new Background(t.getImage());
+        var t = new TextureLoader("source_folder/track.jpg", canvas);
+        var background = new Background(t.getImage());
         background.setImageScaleMode(Background.SCALE_FIT_ALL);
         BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
         background.setApplicationBounds(bounds);
@@ -98,7 +98,7 @@ public class Car extends JFrame {
     }
 
     private TransformGroup getCarGroup() throws IOException {
-    	var shape = getModelShape3D("car", "D:/projects/MAOKG/lab5/source_folder/car/OldCar2.obj");
+    	var shape = getModelShape3D("car", "source_folder/car/OldCar2.obj");
 
     	var transform3D = new Transform3D();
     	transform3D.setScale(new Vector3d(0.3, 0.3, 0.3));
